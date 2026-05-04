@@ -1,0 +1,27 @@
+{
+    "name": "PhD ESP32 Dev Environment",
+    "build": { "dockerfile": "Dockerfile" },
+    "runArgs": ["--privileged", "--network=host"],
+    "workspaceFolder": "/workspace",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind",
+        "source=phd-bash-history,target=/commandhistory,type=volume",
+	    "source=/dev,target=/dev,type=bind"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "espressif.esp-idf-extension",
+                "ms-vscode.cpptools",
+                "ms-python.python",
+                "twxs.cmake"
+            ],
+            "settings": {
+                "idf.espIdfPath": "/opt/esp/idf",
+                "idf.toolsPath": "/opt/esp",
+                "idf.port": "/dev/ttyUSB0"
+            }
+        }
+    },
+    "postCreateCommand": "idf.py --version && echo 'ESP-IDF ready'"
+}
